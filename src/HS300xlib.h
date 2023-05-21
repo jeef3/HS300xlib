@@ -35,6 +35,8 @@ class HS300xlib {
 
     public:
     int8_t MeasurementReq();
+    const float getRawTemperatureC();
+    const float getRawHumidity();
     const float getTemperatureC();
     const float getHumidity();
 };
