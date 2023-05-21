@@ -8,13 +8,15 @@ int8_t HS300xlib::MeasurementReq(){
         return HS300X_ERROR_COLLISION_I2C;
     }
     delay(HS300X_DELAY_MEASUREMENT);
-    do {
-       _status = _readSensor();     
-       _iteration ++;
-       if (_iteration > HS300X_MAX_ITERATION) return HS300X_ERROR_SENSOR_BUSY;   
-       delay(HS300X_DELAY_ITERATION);
-    } while (!_status);
-    return _status;
+    _readSensor(); 
+    return 1;
+    //do {
+    //   _status = _readSensor();     
+    //   _iteration ++;
+    //   if (_iteration > HS300X_MAX_ITERATION) return HS300X_ERROR_SENSOR_BUSY;   
+    //   delay(HS300X_DELAY_ITERATION);
+    //} while (!_status);
+    //return _status;
 }
 uint8_t HS300xlib::_readSensor(){
     uint16_t _rawTemperature = 99;
