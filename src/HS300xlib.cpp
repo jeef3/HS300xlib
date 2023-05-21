@@ -17,34 +17,27 @@ int8_t HS300xlib::MeasurementReq(){
     return _status;
 }
 uint8_t HS300xlib::_readSensor(){
-    uint16_t _rawTempMSB;
-    uint16_t _rawTemp;
-    uint16_t _rawHumMSB;
-    uint16_t _rawHum;
+    uint16_t _rawTemperature;
+    uint16_t _rawHumidity;
     uint8_t  _rawStatus;
   
     Wire.requestFrom(HS300X_ADR, 4, 1);        //true, stop message after transmission & releas the I2C bus
     if (Wire.available() != 4) {
         return 0;   
         }
-    _rawHumMSB = Wire.read() << 8;  // MSB
-    _rawHum  = Wire.read();       // LSB
-    _rawTempMSB = Wire.read() << 8;
-    _rawTemp= Wire.read();
-
-    _rawHum |= _rawHumMSB;
-    _rawTemp |= _rawTempMSB;
     
-    _rawTemperature = _rawTemp;
-    _rawHumidity = _rawHum;
+    _rawTemperature = Wire.read() << 8 | Wire.read() >> 2;
+    _rawHumidity = Wire.read() << | Wire.read();
   
     _rawStatus = _rawHum >> 14;
-    _rawHum = _rawHum & 0x3FFF; // mask 2 bit first
-    _rawTemp = _rawTemp >>2;     // mask 2 bit last  
+    // _rawHum = _rawHum & 0x3FFF; // mask 2 bit first
+    //_rawTemp = _rawTemp >> 2;     // mask 2 bit last  
     if (_rawHum == 0x3FFF) return 0;
     if (_rawTemp == 0x3FFF) return 0;
-    _temperature = (_rawTemp* HS300X_TEMP_MULTY) - HS300X_TEMP_MIN;
-    _humidity = _rawHum * HS300X_HUMD_MULTY;
+    //_temperature = (_rawTemp* HS300X_TEMP_MULTY) - HS300X_TEMP_MIN;
+    //_humidity = _rawHum * HS300X_HUMD_MULTY;
+    _temperature = _rawTemperature;
+    _humidity = _rawHumidity;
     return _rawStatus + 1;
 }
 
