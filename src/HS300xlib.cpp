@@ -45,6 +45,13 @@ uint8_t HS300xlib::_readSensor(){
     return _rawStatus + 1;
 }
 
+const float HS300xlib::getRawHumidity(){
+    return _rawHum;
+}
+const float HS300xlib::getRawTemperatureC(){
+    return _rawTemp;
+}
+
 const float HS300xlib::getHumidity(){
     return _humidity;
 }
