@@ -27,7 +27,7 @@ uint8_t HS300xlib::_readSensor(){
         }
     
     _rawHumidity = (Wire.read() << 8 | Wire.read()) & 0x3FFF;
-    _rawTemperature = Wire.read() << 8 | Wire.read() >> 2
+    _rawTemperature = (Wire.read() << 8 | Wire.read()) >> 2
   
     _rawStatus = _rawHumidity >> 14;
     // _rawHum = _rawHum & 0x3FFF; // mask 2 bit first
