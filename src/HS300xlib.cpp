@@ -27,13 +27,13 @@ uint8_t HS300xlib::_readSensor(){
         }
     
     _rawTemperature = Wire.read() << 8 | Wire.read() >> 2;
-    _rawHumidity = Wire.read() << | Wire.read();
+    _rawHumidity = Wire.read() << 8 | Wire.read();
   
-    _rawStatus = _rawHum >> 14;
+    _rawStatus = _rawHumidity >> 14;
     // _rawHum = _rawHum & 0x3FFF; // mask 2 bit first
     //_rawTemp = _rawTemp >> 2;     // mask 2 bit last  
-    if (_rawHum == 0x3FFF) return 0;
-    if (_rawTemp == 0x3FFF) return 0;
+    //if (_rawHum == 0x3FFF) return 0;
+    //if (_rawTemp == 0x3FFF) return 0;
     //_temperature = (_rawTemp* HS300X_TEMP_MULTY) - HS300X_TEMP_MIN;
     //_humidity = _rawHum * HS300X_HUMD_MULTY;
     _temperature = _rawTemperature;
