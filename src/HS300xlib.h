@@ -29,6 +29,8 @@ class HS300xlib {
     private :
     float _humidity;
     float _temperature;
+    float _rawHumidity;
+    float _rawTemperature;
     uint8_t _status;
     uint8_t _readSensor();
 
