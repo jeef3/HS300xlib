@@ -34,6 +34,9 @@ uint8_t HS300xlib::_readSensor(){
 
     _rawHum |= _rawHumMSB;
     _rawTemp |= _rawTempMSB;
+    
+    _rawTemperature = _rawTemp;
+    _rawHumidity = _rawHum;
   
     _rawStatus = _rawHum >> 14;
     _rawHum = _rawHum & 0x3FFF; // mask 2 bit first
@@ -46,10 +49,10 @@ uint8_t HS300xlib::_readSensor(){
 }
 
 const float HS300xlib::getRawHumidity(){
-    return _rawHum;
+    return _rawHumidity;
 }
 const float HS300xlib::getRawTemperatureC(){
-    return _rawTemp;
+    return _rawTemperature;
 }
 
 const float HS300xlib::getHumidity(){
