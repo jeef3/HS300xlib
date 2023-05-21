@@ -17,8 +17,8 @@ int8_t HS300xlib::MeasurementReq(){
     return _status;
 }
 uint8_t HS300xlib::_readSensor(){
-    uint16_t _rawTemperature;
-    uint16_t _rawHumidity;
+    uint16_t _rawTemperature = 99;
+    uint16_t _rawHumidity = 99;
     uint8_t  _rawStatus;
   
     Wire.requestFrom(HS300X_ADR, 4, 1);        //true, stop message after transmission & releas the I2C bus
@@ -27,7 +27,7 @@ uint8_t HS300xlib::_readSensor(){
         }
     
     _rawHumidity = (Wire.read() << 8 | Wire.read()) & 0x3FFF;
-    _rawTemperature = (Wire.read() << 8 | Wire.read()) >> 2
+    _rawTemperature = (Wire.read() << 8 | Wire.read()) >> 2;
   
     _rawStatus = _rawHumidity >> 14;
     // _rawHum = _rawHum & 0x3FFF; // mask 2 bit first
